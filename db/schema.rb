@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160527192032) do
+ActiveRecord::Schema.define(version: 20160527194653) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -24,6 +24,19 @@ ActiveRecord::Schema.define(version: 20160527192032) do
     t.datetime "created_at",     null: false
     t.datetime "updated_at",     null: false
     t.index ["icloud_user_id"], name: "index_players_on_icloud_user_id", unique: true, using: :btree
+  end
+
+  create_table "stops", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.decimal  "longitude",    precision: 18, scale: 15
+    t.decimal  "latitude",     precision: 18, scale: 15
+    t.string   "name"
+    t.string   "stop_numbers",                           default: [],              array: true
+    t.string   "hsl_ids",                                default: [],              array: true
+    t.datetime "created_at",                                          null: false
+    t.datetime "updated_at",                                          null: false
+    t.index ["hsl_ids"], name: "index_stops_on_hsl_ids", using: :gin
+    t.index ["longitude", "latitude"], name: "index_stops_on_longitude_and_latitude", using: :btree
+    t.index ["stop_numbers"], name: "index_stops_on_stop_numbers", using: :gin
   end
 
 end

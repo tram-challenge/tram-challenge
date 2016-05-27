@@ -15,6 +15,7 @@ namespace :stops do
           id
           gtfsId
           name
+          code
           lat
           lon
         }
@@ -43,7 +44,7 @@ namespace :stops do
         print "."
         stop.hsl_ids = data.map {|s| Base64.decode64(s["id"]) }
         print "."
-        stop.stop_numbers = [] # FIXME: get the actual stop numbers
+        stop.stop_numbers = data.map {|s| s["code"] }
 
         stop.save!
         puts " done"

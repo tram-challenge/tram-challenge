@@ -28,8 +28,9 @@ namespace :stops do
     data = JSON.load(resp.body.to_s)
 
     stops = data.dig("data", "routes").map {|r| r["stops"] }.flatten.uniq {|s| s["name"]}
-    pp stops
+    stops.each {|s| s["id"] = Base64.decode64(s["id"]) }
 
+    pp stops
     puts "\nUnique stops: #{stops.size}"
   end
 end

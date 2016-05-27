@@ -24,6 +24,8 @@ gem "turbolinks", "~> 5.x"
 
 gem "http"
 
+gem "geocoder"
+
 source "https://rails-assets.org" do
   # Asset gems
 end

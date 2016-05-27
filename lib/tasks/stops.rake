@@ -27,10 +27,29 @@ namespace :stops do
 
     data = JSON.load(resp.body.to_s)
 
-    stops = data.dig("data", "routes").map {|r| r["stops"] }.flatten.uniq {|s| s["name"]}
-    stops.each {|s| s["id"] = Base64.decode64(s["id"]) }
+    stop_data = data.dig("data", "routes").map {|r| r["stops"] }.flatten.group_by {|s| s["name"]}
 
-    pp stops
-    puts "\nUnique stops: #{stops.size}"
+    Stop.transaction do
+      stop_data.each do |name, data|
+        print "Creating #{name}"
+
+        points = data.map {|s| [s["lat"], s["lon"]] }
+        centre = Geocoder::Calculations.geographic_center points
+        print "."
+
+        stop = Stop.find_or_initialize_by(name: name)
+        print "."
+        stop.latitude, stop.longitude = centre
+        print "."
+        stop.hsl_ids = data.map {|s| Base64.decode64(s["id"]) }
+        print "."
+        stop.stop_numbers = [] # FIXME: get the actual stop numbers
+
+        stop.save!
+        puts " done"
+      end
+    end
+
+    puts "Known stops: #{Stop.count}"
   end
 end

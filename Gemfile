@@ -22,6 +22,8 @@ gem "coffee-rails", "~> 4.1.0"
 gem "jquery-rails"
 gem "turbolinks", "~> 5.x"
 
+gem "http"
+
 source "https://rails-assets.org" do
   # Asset gems
 end

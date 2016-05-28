@@ -11,12 +11,21 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528101754) do
+ActiveRecord::Schema.define(version: 20160528103138) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "uuid-ossp"
+
+  create_table "attempts", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "player_id"
+    t.datetime "started_at"
+    t.datetime "finished_at"
+    t.datetime "created_at",  null: false
+    t.datetime "updated_at",  null: false
+    t.index ["player_id"], name: "index_attempts_on_player_id", using: :btree
+  end
 
   create_table "players", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.string   "icloud_user_id"
@@ -43,4 +52,5 @@ ActiveRecord::Schema.define(version: 20160528101754) do
     t.index ["stop_numbers"], name: "index_stops_on_stop_numbers", using: :gin
   end
 
+  add_foreign_key "attempts", "players"
 end

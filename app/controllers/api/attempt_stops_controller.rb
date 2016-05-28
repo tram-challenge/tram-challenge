@@ -1,6 +1,6 @@
 class Api::AttemptStopsController < Api::BaseController
   def update
-    attempt_stop = attempt.attempt_stops.find(stop_id: params[:id])
+    attempt_stop = attempt.attempt_stops.where(stop_id: params[:id]).first!
 
     if params[:stop][:visited]
       attempt_stop.visited_at ||= Time.current

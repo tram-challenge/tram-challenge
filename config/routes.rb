@@ -8,6 +8,8 @@ Rails.application.routes.draw do
 
   resources :tram_routes, path: "routes", only: %i(index show)
 
+  resource :leaderboard, only: %i(show)
+
   root "pages#home"
 
   get "map" => "pages#map"

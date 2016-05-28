@@ -35,6 +35,7 @@ html lang="en"
           = tabs_tag builder: NavbarTabBuilder do |tab|
               = tab.home "Home", :root
               = tab.map "Map", :map
+              = tab.leaderboard "Leaderboard", :leaderboard
     - if alert
       .alert.alert-warning.alert-dismissible role="alert"
         button.close type="button" data-dismiss="alert" aria-label="Close"

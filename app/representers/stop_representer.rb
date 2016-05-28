@@ -16,6 +16,7 @@ class StopRepresenter < Roar::Decorator
   property :stop_numbers
   property :hsl_ids
   property :routes
+  property :stop_positions
 
   link :self do
      Rails.application.routes.url_helpers.api_stop_path(represented)

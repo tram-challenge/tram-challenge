@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528104354) do
+ActiveRecord::Schema.define(version: 20160528164703) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -46,15 +46,16 @@ ActiveRecord::Schema.define(version: 20160528104354) do
   end
 
   create_table "stops", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
-    t.decimal  "longitude",    precision: 18, scale: 15
-    t.decimal  "latitude",     precision: 18, scale: 15
+    t.decimal  "longitude",      precision: 18, scale: 15
+    t.decimal  "latitude",       precision: 18, scale: 15
     t.string   "name"
-    t.string   "stop_numbers",                           default: [],                array: true
-    t.string   "hsl_ids",                                default: [],                array: true
-    t.datetime "created_at",                                            null: false
-    t.datetime "updated_at",                                            null: false
-    t.string   "routes",                                 default: [],                array: true
-    t.boolean  "active",                                 default: true
+    t.string   "stop_numbers",                             default: [],                array: true
+    t.string   "hsl_ids",                                  default: [],                array: true
+    t.datetime "created_at",                                              null: false
+    t.datetime "updated_at",                                              null: false
+    t.string   "routes",                                   default: [],                array: true
+    t.boolean  "active",                                   default: true
+    t.jsonb    "stop_positions",                           default: {}
     t.index ["active"], name: "index_stops_on_active", using: :btree
     t.index ["hsl_ids"], name: "index_stops_on_hsl_ids", using: :gin
     t.index ["longitude", "latitude"], name: "index_stops_on_longitude_and_latitude", using: :btree

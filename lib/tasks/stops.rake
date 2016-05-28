@@ -11,18 +11,23 @@ namespace :stops do
         shortName
         longName
         desc
-        stops {
-          id
-          gtfsId
-          name
+        patterns {
           code
-          lat
-          lon
+          trips {
+            serviceId
+          }
+          stops {
+            id
+            gtfsId
+            name
+            code
+            lat
+            lon
+          }
         }
       }
     }
     )
-
 
     resp = HTTP.post("https://api.digitransit.fi/routing/v1/routers/finland/index/graphql", body: query)
 
@@ -31,6 +36,13 @@ namespace :stops do
     # Delete the #5 tram since it doesn't exist yet
     # FIXME: reinstate it in the future
     data["data"]["routes"].delete_if { |r| r["shortName"] == "5" }
+
+    # Get the route with the most trips, that's likely to be the “main” route
+    # for that tram line.
+    data["data"]["routes"].each do |route|
+      route["patterns"].sort_by! {|p| p["trips"].length }.reverse!
+      route["stops"] = route.delete("patterns").dig(0, "stops")
+    end
 
     data.dig("data", "routes").each do |route|
       route["stops"].each do |stop_data|
@@ -74,5 +86,6 @@ namespace :stops do
     end
 
     puts "Known stops: #{Stop.count}"
+    puts "Active stops: #{Stop.active.count}"
   end
 end

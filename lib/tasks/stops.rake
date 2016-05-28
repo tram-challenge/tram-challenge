@@ -28,6 +28,10 @@ namespace :stops do
 
     data = JSON.load(resp.body.to_s)
 
+    # Delete the #5 tram since it doesn't exist yet
+    # FIXME: reinstate it in the future
+    data["data"]["routes"].delete_if { |r| r["shortName"] == "5" }
+
     data.dig("data", "routes").each do |route|
       route["stops"].each do |stop_data|
         stop_data["route"] = route["shortName"]

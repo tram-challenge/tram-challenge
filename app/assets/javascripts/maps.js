@@ -1,5 +1,5 @@
 var vehiclesGeoJSON = function(callback) {
-  var url = "http://api.digitransit.fi/realtime/vehicle-positions/v1/hfp/journey/tram/";
+  var url = "https://api.digitransit.fi/realtime/vehicle-positions/v1/hfp/journey/tram/";
 
   $.getJSON(url, function(data, status, xhr) {
     var geoJSON = {

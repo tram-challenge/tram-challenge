@@ -13,6 +13,9 @@ class Attempt < ApplicationRecord
       ON (attempts.id = attempt_stops.attempt_id AND attempt_stops.visited_at IS NULL)
     ").group("attempts.id").having("count(attempt_stops.id) = 0")
   }
+  scope :order_by_elapsed, -> {
+    order("(COALESCE(attempts.finished_at, current_timestamp) - attempts.started_at) ASC")
+  }
 
   before_create :initialize_attempt_stops
 

@@ -10,8 +10,28 @@ $(document).on("turbolinks:load", function() {
         center: [24.9384, 60.1800],
         zoom: 11,
         interactive: ($el.data("disable-interaction") ? false : true),
-        pitch: ($el.data("pitch") ? $el.data("pitch") : 0)
+        pitch: ($el.data("pitch") ? $el.data("pitch") : 0),
+        bearing: 0,
       });
+
+      if ($el.data("animator") && $el.data("animator") == "rotator") {
+        function rotator(){
+          map.easeTo({bearing:60, duration:16000, pitch:55, zoom:14});
+          window.setTimeout(function(){
+            map.easeTo({bearing:180, duration:18000, pitch:0, zoom:10});
+            window.setTimeout(function(){
+              map.easeTo({bearing:220, duration:14000, pitch:70, zoom:11});
+              window.setTimeout(function(){
+                rotator()
+              }, 7000)
+            }, 10000)
+          }, 9000)
+        }
+        map.on("load", function(){
+          rotator()
+        })
+      }
+
     })
   }
 });

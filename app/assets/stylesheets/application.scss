@@ -2,7 +2,8 @@
 @import "bootstrap-simplex";
 
 .jumbotron-map {
-  min-height: 500px;
+  height: 500px;
+  max-height: 50vh;
   padding: 0 !important;
 
   .mapboxgl-canvas-container,
@@ -25,6 +26,7 @@
 .jumbotron-logo {
   width: 100%;
   max-width: 80%;
+  max-height: 80%;
   position: absolute;
   top: 50%;
   transform: translate(-50%, -50%);

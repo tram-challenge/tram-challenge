@@ -34,8 +34,6 @@ namespace :stops do
       end
     end
 
-    binding.pry
-
     stop_data = data.dig("data", "routes").
       map { |r| r["stops"] }.flatten.
       group_by { |s| s["name"] }

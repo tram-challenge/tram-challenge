@@ -43,7 +43,7 @@ namespace :stops do
       group_by { |s| s["name"] }
 
     Stop.transaction do
-      stop_data.each do |name, data|
+      stops = stop_data.map do |name, data|
         print "Creating #{name}"
 
         points = data.map {|s| [s["lat"], s["lon"]] }
@@ -60,9 +60,17 @@ namespace :stops do
         print "."
         stop.routes = data.map {|s| s["route"] }.uniq
 
+        stop.active = true
+
         stop.save!
         puts " done"
+
+        stop
       end
+
+      print "Removing old stops... "
+      Stop.where.not(id: stops.map(&:id)).update_all(active: false)
+      puts "Done"
     end
 
     puts "Known stops: #{Stop.count}"

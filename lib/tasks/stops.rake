@@ -28,7 +28,10 @@ namespace :stops do
 
     data = JSON.load(resp.body.to_s)
 
-    stop_data = data.dig("data", "routes").map {|r| r["stops"] }.flatten.group_by {|s| s["name"]}
+    stop_data = data.dig("data", "routes").
+      map { |r| r["stops"] }.flatten.
+      uniq { |s| s["id"] }.
+      group_by { |s| s["name"] }
 
     Stop.transaction do
       stop_data.each do |name, data|

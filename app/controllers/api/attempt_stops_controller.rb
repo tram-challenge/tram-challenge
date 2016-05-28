@@ -2,7 +2,7 @@ class Api::AttemptStopsController < Api::BaseController
   def update
     attempt_stop = attempt.attempt_stops.find(stop_id: params[:id])
 
-    if params[:attempt_stop][:visited_at]
+    if params[:stop][:visited]
       attempt_stop.visited_at ||= Time.current
     else
       attempt_stop.visited_at = nil

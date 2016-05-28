@@ -1,6 +1,10 @@
 @import "variables";
 @import "bootstrap-simplex";
 
+body, html {
+  height: 100%;
+}
+
 .jumbotron-map {
   height: 500px;
   max-height: 50vh;
@@ -32,4 +36,15 @@
   transform: translate(-50%, -50%);
   z-index: 1000;
   left: 50%;
+}
+
+.action-map {
+  .navbar {
+    margin-bottom: 0;
+  }
+}
+
+#full-map {
+  height: 100%;
+  width: 100%;
 }

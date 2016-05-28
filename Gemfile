@@ -23,6 +23,9 @@ gem "jquery-rails"
 gem "turbolinks", "~> 5.x"
 
 gem "http"
+gem "roar"
+gem "multi_json"
+gem "virtus"
 
 gem "geocoder"
 

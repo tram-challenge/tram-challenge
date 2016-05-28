@@ -7,13 +7,10 @@ class AttemptStopRepresenter < Roar::Decorator
   include Roar::Hypermedia
   include Roar::Coercion
 
-  property :id
-
-  property :visited_at
-
-  property :stop, representer: StopRepresenter
+  property :visited_at, render_nil: true
+  property :stop_id, as: :id
 
   link :self do
-    #  Rails.application.routes.url_helpers.api_attempt_stop_path(represented)
+    Rails.application.routes.url_helpers.api_stop_path(id: represented.stop_id)
   end
 end

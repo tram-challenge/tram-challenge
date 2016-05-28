@@ -12,7 +12,7 @@ class AttemptRepresenter < Roar::Decorator
   property :started_at
   property :finished_at
 
-  collection :attempt_stops, extend: AttemptStopRepresenter
+  collection :attempt_stops, as: :stops, extend: AttemptStopRepresenter
 
   link :self do
      Rails.application.routes.url_helpers.api_attempt_path(represented)

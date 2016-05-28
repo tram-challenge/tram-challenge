@@ -1,16 +1,6 @@
 class Api::AttemptStopsController < Api::BaseController
-  def index
-    attempt_stops = attempt.attempt_stops
-    render json: AttemptStopRepresenter.for_collection.new(attempt_stops)
-  end
-
-  def show
-    attempt_stop = attempt.attempt_stops.find(params[:id])
-    render json: AttemptStopRepresenter.new(attempt_stop)
-  end
-
   def update
-    attempt_stop = attempt.attempt_stops.find(params[:id])
+    attempt_stop = attempt.attempt_stops.find(stop_id: params[:id])
 
     if params[:attempt_stop][:visited_at]
       attempt_stop.visited_at ||= Time.current

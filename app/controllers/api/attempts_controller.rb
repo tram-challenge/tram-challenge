@@ -10,15 +10,13 @@ class Api::AttemptsController < Api::BaseController
   end
 
   def create
-    if current_player.attempts.in_progress.any?
-      error = {
-        error: "One player can only have one active attempt at a time"
-      }
-      render json: error
+    attempt = if (attempt = current_player.attempts.in_progress.first)
+      attempt
     else
-      attempt = current_player.attempts.create(started_at: Time.current)
-      render json: AttemptRepresenter.new(attempt)
+      current_player.attempts.create(started_at: Time.current)
     end
+
+    render json: AttemptRepresenter.new(attempt)
   end
 
   def update

@@ -11,12 +11,22 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160528103138) do
+ActiveRecord::Schema.define(version: 20160528104354) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
   enable_extension "hstore"
   enable_extension "uuid-ossp"
+
+  create_table "attempt_stops", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
+    t.uuid     "attempt_id"
+    t.uuid     "stop_id"
+    t.time     "visited_at"
+    t.datetime "created_at", null: false
+    t.datetime "updated_at", null: false
+    t.index ["attempt_id"], name: "index_attempt_stops_on_attempt_id", using: :btree
+    t.index ["stop_id"], name: "index_attempt_stops_on_stop_id", using: :btree
+  end
 
   create_table "attempts", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "player_id"
@@ -52,5 +62,7 @@ ActiveRecord::Schema.define(version: 20160528103138) do
     t.index ["stop_numbers"], name: "index_stops_on_stop_numbers", using: :gin
   end
 
+  add_foreign_key "attempt_stops", "attempts"
+  add_foreign_key "attempt_stops", "stops"
   add_foreign_key "attempts", "players"
 end

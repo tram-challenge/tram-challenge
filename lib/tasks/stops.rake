@@ -28,9 +28,16 @@ namespace :stops do
 
     data = JSON.load(resp.body.to_s)
 
+    data.dig("data", "routes").each do |route|
+      route["stops"].each do |stop_data|
+        stop_data["route"] = route["shortName"]
+      end
+    end
+
+    binding.pry
+
     stop_data = data.dig("data", "routes").
       map { |r| r["stops"] }.flatten.
-      uniq { |s| s["id"] }.
       group_by { |s| s["name"] }
 
     Stop.transaction do
@@ -45,9 +52,11 @@ namespace :stops do
         print "."
         stop.latitude, stop.longitude = centre
         print "."
-        stop.hsl_ids = data.map {|s| Base64.decode64(s["id"]) }
+        stop.hsl_ids = data.map {|s| Base64.decode64(s["id"]) }.uniq
         print "."
-        stop.stop_numbers = data.map {|s| s["code"] }
+        stop.stop_numbers = data.map {|s| s["code"] }.uniq
+        print "."
+        stop.routes = data.map {|s| s["route"] }.uniq
 
         stop.save!
         puts " done"

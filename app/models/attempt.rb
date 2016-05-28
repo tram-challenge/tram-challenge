@@ -6,4 +6,12 @@ class Attempt < ApplicationRecord
   validates :player, presence: true
 
   scope :in_progress, -> { where(finished_at: nil) }
+
+  before_create :initialize_attempt_stops
+
+  private def initialize_attempt_stops
+    Stop.active.each do |stop|
+      self.attempt_stops.build(stop: stop)
+    end
+  end
 end

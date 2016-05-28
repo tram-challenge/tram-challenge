@@ -4,6 +4,8 @@ Rails.application.routes.draw do
     resources :stops, only: %i(show index)
     put "stops/:id" => "attempt_stops#update", as: :update_attempt_stop
     resources :attempts, only: %i(index show create update)
+
+    resource :leaderboard, only: %i(show)
   end
 
   resources :tram_routes, path: "routes", only: %i(index show)

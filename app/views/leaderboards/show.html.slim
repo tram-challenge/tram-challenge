@@ -16,7 +16,7 @@
           - @attempts.each_with_index do |attempt, index|
             tr
               td= index + 1
-              td= attempt.player.nickname.present? ? attempt.player.nickname : "Anonymous"
+              td= attempt.player.nickname
               td= attempt.elapsed_time(pretty: true)
-              td= l(attempt.finished_at.present? ? attempt.finished_at : attempt.started_at)
+              td= l((attempt.finished_at.present? ? attempt.finished_at : attempt.started_at).to_date)
               td= "#{attempt.attempt_stops.visited.size}/#{attempt.attempt_stops.size}"

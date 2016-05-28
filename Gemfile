@@ -31,6 +31,7 @@ gem "http"
 gem "roar"
 gem "multi_json"
 gem "virtus"
+gem "jbuilder"
 
 gem "geocoder"
 

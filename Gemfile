@@ -9,9 +9,11 @@ gem "pg", "~> 0.18"
 gem "puma", "~> 3.0"
 
 gem "slim-rails"
+gem "tabs_on_rails"
 
 gem "sass-rails", "~> 5.0"
 gem "bootswatch-sass", "~> 3.3.0"
+gem "autoprefixer-rails"
 
 gem "uglifier", ">= 1.3.0"
 

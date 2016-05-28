@@ -1,1 +1,22 @@
-@import "bootstrap-yeti";
+@import "variables";
+@import "bootstrap-simplex";
+
+.jumbotron-map {
+  min-height: 500px;
+  padding: 0 !important;
+
+  .mapboxgl-canvas-container,
+  .mapboxgl-canvas {
+    border-radius: 6px;
+  }
+}
+
+.jumbotron-logo {
+  width: 100%;
+  max-width: 80%;
+  position: absolute;
+  top: 50%;
+  transform: translate(-50%, -50%);
+  z-index: 1000;
+  left: 50%;
+}

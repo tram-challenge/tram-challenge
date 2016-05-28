@@ -31,6 +31,20 @@ var vehiclesGeoJSON = function(callback) {
   });
 }
 
+
+var uuid = function() {
+  var uuid = "", i, random;
+  for (i = 0; i < 32; i++) {
+    random = Math.random() * 16 | 0;
+
+    if (i == 8 || i == 12 || i == 16 || i == 20) {
+      uuid += "-"
+    }
+    uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
+  }
+  return uuid;
+}
+
 $(document).on("turbolinks:load", function() {
   if ($("[data-role~=map]").length) {
     $("[data-role~=map]").each(function(i, el) {
@@ -88,6 +102,39 @@ $(document).on("turbolinks:load", function() {
               map.getSource("vehicle-markers").setData(newJSON.data);
             })
           }, 1000)
+        })
+      }
+
+      if ($el.data("routes")) {
+        map.on("load", function () {
+          var url = "/routes"
+          $.getJSON(url, function(urls) {
+            $.each(urls, function(i, routeURL) {
+              $.getJSON(routeURL, function(json, status, xhr) {
+                var id = "route-" + uuid();
+                console.log(id)
+                debugger
+                map.addSource(id, {
+                  "type": "geojson",
+                  "data": json
+                });
+
+                map.addLayer({
+                  "id": id,
+                  "type": "line",
+                  "source": id,
+                  "layout": {
+                    "line-join": "round",
+                    "line-cap": "round"
+                  },
+                  "paint": {
+                    "line-color": "#888",
+                    "line-width": 2
+                  }
+                });
+              });
+            });
+          })
         })
       }
 

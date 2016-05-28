@@ -20,6 +20,6 @@ class Api::AttemptStopsController < Api::BaseController
   end
 
   private def attempt
-    @attempt ||= current_player.attempts.find(params[:attempt_id])
+    @attempt ||= current_player.attempts.in_progress.first
   end
 end

@@ -11,6 +11,8 @@ class AttemptRepresenter < Roar::Decorator
 
   property :started_at
   property :finished_at
+  property :elapsed_time
+  property :current_time, writeable: false, getter: -> (_) { Time.current }, exec_context: :decorator
 
   collection :attempt_stops, as: :stops, extend: AttemptStopRepresenter
 

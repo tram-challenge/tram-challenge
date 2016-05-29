@@ -105,7 +105,28 @@ $(document).on("turbolinks:load", function() {
               }, "vehicle-markers");
             });
           });
-        })
+        });
+
+        $.getJSON("/stops.json", function(geoJSON) {
+          map.addSource("stop-markers", {
+            "type": "geojson",
+            "data": geoJSON
+          });
+
+          map.addLayer({
+            "id": "stop-markers",
+            "type": "symbol",
+            "source": "stop-markers",
+            "layout": {
+              "icon-image": "{marker-symbol}-15",
+              "text-field": "{title}",
+              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              "text-size": 12,
+              "text-offset": [0, 0.6],
+              "text-anchor": "top"
+            }
+          });
+        });
       })
 
       map.on("load", function () {
@@ -119,6 +140,7 @@ $(document).on("turbolinks:load", function() {
               "icon-image": "{marker-symbol}-11",
               "text-field": "{title}",
               "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              "text-color": "#666",
               "text-offset": [0, 0.6],
               "text-anchor": "top"
             }

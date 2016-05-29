@@ -24,6 +24,11 @@ class Api::AttemptsController < Api::BaseController
     if attempt.finished_at.nil?
       attempt.update_attributes(finished_at: Time.current)
     end
+
+    if params[:nickname]
+      current_player.update_attributes(nickname: params[:nickname])
+    end
+
     render json: AttemptRepresenter.new(attempt)
   end
 end

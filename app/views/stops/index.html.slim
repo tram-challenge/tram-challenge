@@ -28,3 +28,9 @@
                   |&#32;
               td
                 = "#{number_with_precision(stop.latitude, precision: 5)}, #{number_with_precision(stop.longitude, precision: 5)}"
+
+  .row
+    .col-md-8.col-md-offset-2
+      .text-center
+        = link_to "Download stops as GeoJSON", [:stops, format: :json], download: "tram-challenge-stops"
+      br

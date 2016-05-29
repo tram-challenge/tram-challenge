@@ -81,29 +81,32 @@ $(document).on("turbolinks:load", function() {
 
       map.on("load", function () {
         var url = "/routes"
-        $.getJSON(url, function(urls) {
-          $.each(urls, function(i, routeURL) {
-            $.getJSON(routeURL, function(json, status, xhr) {
-              var id = "route-" + uuid();
-              map.addSource(id, {
-                "type": "geojson",
-                "data": json
-              });
+        $.getJSON(url, function(json) {
 
-              map.addLayer({
-                "id": id,
-                "type": "line",
-                "source": id,
-                "layout": {
-                  "line-join": "round",
-                  "line-cap": "round"
-                },
-                "paint": {
-                  "line-color": "#888",
-                  "line-width": 2
-                }
-              }, "vehicle-markers");
+          $.each(json["features"], function(i, feature) {
+            var id = "tram-route-" + feature["properties"]["route"];
+            map.addSource(id, {
+              "type": "geojson",
+              "data": {
+                "type": "FeatureCollection",
+                "features": [feature]
+              }
             });
+
+            map.addLayer({
+              "id": id,
+              "type": "line",
+              "source": id,
+              "layout": {
+                "line-join": "round",
+                "line-cap": "round"
+              },
+              "paint": {
+                "line-color": feature["properties"]["route-color"],
+                "line-width": 2,
+                "line-opacity": 0.9
+              }
+            }, "vehicle-markers");
           });
         });
 
@@ -115,15 +118,12 @@ $(document).on("turbolinks:load", function() {
 
           map.addLayer({
             "id": "stop-markers",
-            "type": "symbol",
+            "type": "circle",
             "source": "stop-markers",
-            "layout": {
-              "icon-image": "{marker-symbol}-15",
-              "text-field": "{title}",
-              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              "text-size": 12,
-              "text-offset": [0, 0.6],
-              "text-anchor": "top"
+            "paint": {
+              "circle-radius": 3,
+              "circle-color": "#626262",
+              "circle-opacity": 0.8
             }
           });
         });

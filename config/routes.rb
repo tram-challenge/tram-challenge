@@ -8,7 +8,7 @@ Rails.application.routes.draw do
     resource :leaderboard, only: %i(show)
   end
 
-  resources :tram_routes, path: "routes", only: %i(index show)
+  resources :tram_routes, path: "routes", only: %i(index)
 
   resource :leaderboard, only: %i(show)
 

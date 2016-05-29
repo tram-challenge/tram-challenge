@@ -1,19 +1,41 @@
+.jumbotron
+  .container
+    .jumbo-middle
+      h1 The Helsinki Tram Challenge
+
+      .row
+        .col-md-6.col-md-offset-3
+          p
+            | Inspired by the <a href="https://en.wikipedia.org/wiki/Tube_Challenge">London Tube Challenge</a>, we present the <strong>Helsinki Tram Challenge</strong>.
+          p
+            | The goal of the Tram Challenge is to <em>visit all the tram stops</em> on the Helsinki tram system as quickly as possible.
+
+/ .container
+/   .jumbotron.jumbotron-map data-role="map" data-disable-interaction="disable-interaction" data-style="mapbox://styles/matiaskorhonen/cior3s5es000edinov2r5cpm6" data-pitch=60 data-animator="rotator" data-realtime="realtime"
+/     .jumbotron-overlay
+/     = image_tag "tram-challenge-white.svg", class: "jumbotron-logo"
+
 .container
-  .jumbotron.jumbotron-map data-role="map" data-disable-interaction="disable-interaction" data-style="mapbox://styles/matiaskorhonen/cior3s5es000edinov2r5cpm6" data-pitch=60 data-animator="rotator" data-realtime="realtime"
-    .jumbotron-overlay
-    = image_tag "tram-challenge-white.svg", class: "jumbotron-logo"
-
   .row
-    .col-md-4
-      h2 What?
+    .col-md-3
+      = image_tag "iphone.png", alt: "Tram Challenge iOS app screenshot", class: "img-responsive"
+    .col-md-9
+      h2 How?
 
       p.lead
-        | Inspired by the <a href="https://en.wikipedia.org/wiki/Tube_Challenge">London Tube Challenge</a>, we present the <strong>Helsinki Tram Challenge</strong>.
+        | Start by downloading the Tram Challenge app from the App Store. Next you should do some initial planning for your route, pay special attention to the route end points…
 
       p.lead
-        | The goal of the Tram Challenge is to <em>visit all the tram stops</em> on the Helsinki tram system as quickly as possible.
+        | Once you have a plan, <strong>go for it!</strong>
 
-    .col-md-4
+      p
+        strong Remember to make sure that you have a valid ticket for the duration of your attempt!
+
+      .text-center
+        = image_tag("Download_on_the_App_Store_Badge_US-UK_135x40.svg")
+        br
+        small.text-muted Coming soon
+
       h2 Why?
 
       p.lead
@@ -22,11 +44,10 @@
       p.lead
         | Its shouldn't take more than a few hours to complete the challenge so it's very much doable in one day.
 
-    .col-md-4
-      h2 How?
 
-      p.lead
-        | Start by downloading the Tram Challenge app from the App Store. Next you should do some initial planning for your route, pay special attention to the route end points…
-
-      p.lead
-        | Once you have a plan, <strong>go for it!</strong>
+  / .row
+  /   .col-md-6
+  /     = image_tag "arctic-Alex-Hallberg-cc-by-sa.jpg", alt: "A tram in Helsinki", class: "img-responsive"
+  /
+  /   .col-md-6
+  /     = image_tag "raitiolinjat.png", alt: "Helsinki tram network", class: "img-responsive"

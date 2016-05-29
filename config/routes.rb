@@ -15,4 +15,5 @@ Rails.application.routes.draw do
   root "pages#home"
 
   get "map" => "pages#map"
+  get "rules" => "pages#rules"
 end

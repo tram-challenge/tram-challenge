@@ -21,6 +21,10 @@ html lang="en"
 
     = favicon_link_tag "favicon-32.png", type: "image/png"
     = favicon_link_tag "apple-touch-icon.png", type: "image/png", rel: "apple-touch-icon"
+
+    = javascript_include_tag "https://use.typekit.net/wvg3fdv.js"
+    javascript:
+      try{Typekit.load({ async: true });}catch(e){}
   body class="controller-#{controller.controller_path} action-#{controller.action_name}"
     nav.navbar.navbar-default.navbar-static-top.navbar-inverse
       .container
@@ -35,6 +39,7 @@ html lang="en"
           = tabs_tag builder: NavbarTabBuilder do |tab|
               = tab.home "Home", :root
               = tab.map "Map", :map
+              = tab.leaderboard "Rules", :rules
               = tab.leaderboard "Leaderboard", :leaderboard
     - if alert
       .alert.alert-warning.alert-dismissible role="alert"

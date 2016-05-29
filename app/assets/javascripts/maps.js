@@ -140,7 +140,6 @@ $(document).on("turbolinks:load", function() {
               "icon-image": "{marker-symbol}-11",
               "text-field": "{title}",
               "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-              "text-color": "#666",
               "text-offset": [0, 0.6],
               "text-anchor": "top"
             }

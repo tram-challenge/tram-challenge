@@ -125,7 +125,7 @@ $(document).on("turbolinks:load", function() {
               "circle-color": "#626262",
               "circle-opacity": 0.8
             }
-          });
+          }, "vehicle-markers");
         });
       })
 

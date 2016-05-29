@@ -17,9 +17,9 @@
 
 .container
   .row
-    .col-md-3
+    .col-md-3.col-md-offset-1
       = image_tag "iphone.png", alt: "Tram Challenge iOS app screenshot", class: "img-responsive"
-    .col-md-9
+    .col-md-7
       h2 How?
 
       p.lead
@@ -31,10 +31,11 @@
       p
         strong Remember to make sure that you have a valid ticket for the duration of your attempt!
 
-      .text-center
-        = image_tag("Download_on_the_App_Store_Badge_US-UK_135x40.svg")
-        br
-        small.text-muted Coming soon
+      = image_tag("Download_on_the_App_Store_Badge_US-UK_135x40.svg")
+      br
+      small.text-muted Coming soon
+
+      hr
 
       h2 Why?
 

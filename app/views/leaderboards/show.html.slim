@@ -14,7 +14,7 @@
           th Stops
         tbody
           - @attempts.each_with_index do |attempt, index|
-            tr
+            tr id=dom_id(attempt)
               td= index + 1
               td= attempt.player.nickname
               td= attempt.elapsed_time(pretty: true)

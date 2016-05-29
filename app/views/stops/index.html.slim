@@ -1,0 +1,30 @@
+.container
+  .row
+    .col-md-8.col-md-offset-2
+      h1 Stops included in the challenge
+      p.lead
+        | Since the number of stops on the network varies depending on which lines are running, what the day of the week, and other factors, we've preparred a list of “canonnical” stops for the challenge.
+
+  .row
+    .col-md-8.col-md-offset-2
+      p.lead
+        | We've also combined stops from both sides of the road into a single stop, and so forth… Download the iOS app to easily check off which stops you've visited.
+      table.table.table-striped
+        thead
+          tr
+            th Name
+            th Stop numbers
+            th Trams
+            th Coordinates
+        tbody
+          - @stops.each do |stop|
+            tr
+              td
+                strong= stop.name
+              td= stop.stop_numbers.join(", ")
+              td
+                - stop.routes.each do |route|
+                  span.badge= route
+                  |&#32;
+              td
+                = "#{number_with_precision(stop.latitude, precision: 5)}, #{number_with_precision(stop.longitude, precision: 5)}"

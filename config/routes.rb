@@ -12,6 +12,8 @@ Rails.application.routes.draw do
 
   resource :leaderboard, only: %i(show)
 
+  resources :stops, only: %i(index)
+
   root "pages#home"
 
   get "map" => "pages#map"

@@ -1,10 +1,10 @@
 .container
   .row
-    .col-md-12
+    .col-md-8.col-md-offset-2
       h1 Leaderboard
 
   .row
-    .col-md-12
+    .col-md-8.col-md-offset-2
       table.table.table-striped
         thead
           th Position
@@ -18,5 +18,5 @@
               td= index + 1
               td= attempt.player.nickname
               td= attempt.elapsed_time(pretty: true)
-              td= attempt.finished_at
+              td= l (attempt.finished_at.present? ? attempt.finished_at : attempt.started_at).to_date
               td= "#{attempt.attempt_stops.visited.size}/#{attempt.attempt_stops.size}"

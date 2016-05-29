@@ -1,6 +1,7 @@
 class Api::AttemptStopsController < Api::BaseController
   def update
-    attempt_stop = current_player.attempt_stops.find_by!(stop_id: params[:id])
+    in_progress = current_player.attempts.in_progress.first!
+    attempt_stop = in_progress.attempt_stops.find_by!(stop_id: params[:id])
 
     if params[:stop][:visited]
       attempt_stop.visited_at ||= Time.current

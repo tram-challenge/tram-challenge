@@ -1,6 +1,6 @@
 class Api::AttemptStopsController < Api::BaseController
   def update
-    attempt_stop = attempt.attempt_stops.where(stop_id: params[:id]).first!
+    attempt_stop = current_player.attempt_stops.find_by!(stop_id: params[:id])
 
     if params[:stop][:visited]
       attempt_stop.visited_at ||= Time.current
@@ -17,9 +17,5 @@ class Api::AttemptStopsController < Api::BaseController
       }
       render json: error, status: :bad_request
     end
-  end
-
-  private def attempt
-    @attempt ||= current_player.attempts.in_progress.first
   end
 end

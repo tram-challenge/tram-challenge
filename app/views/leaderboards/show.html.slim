@@ -18,5 +18,5 @@
               td= index + 1
               td= attempt.player.nickname
               td= attempt.elapsed_time(pretty: true)
-              td= l((attempt.finished_at.present? ? attempt.finished_at : attempt.started_at).to_date)
+              td= attempt.finished_at
               td= "#{attempt.attempt_stops.visited.size}/#{attempt.attempt_stops.size}"

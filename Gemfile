@@ -9,6 +9,7 @@ gem "pg", "~> 0.18"
 gem "puma", "~> 3.0"
 gem "rack-rewrite"
 
+gem "title"
 gem "slim-rails"
 gem "tabs_on_rails"
 gem "redcarpet"

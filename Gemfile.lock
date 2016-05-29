@@ -216,6 +216,9 @@ GEM
     thor (0.19.1)
     thread_safe (0.3.5)
     tilt (2.0.4)
+    title (0.0.7)
+      i18n
+      rails (>= 3.1)
     turbolinks (5.0.0.beta2)
       turbolinks-source
     turbolinks-source (5.0.0.beta5)
@@ -269,6 +272,7 @@ DEPENDENCIES
   spring
   spring-watcher-listen (~> 2.0.0)
   tabs_on_rails
+  title
   turbolinks (~> 5.x)
   tzinfo-data
   uglifier (>= 1.3.0)

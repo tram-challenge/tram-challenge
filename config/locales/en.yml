@@ -20,4 +20,14 @@
 # available at http://guides.rubyonrails.org/i18n.html.
 
 en:
-  hello: "Hello world"
+  titles:
+    # titles.application defaults to the sigficant portion of
+    # AppName::Application, which would be:
+    application: Tram Challenge
+    leaderboards:
+      show: Leaderboard
+    pages:
+      map: Map
+      rules: Challenge rules
+    stops:
+      index: Stops included in the challenge

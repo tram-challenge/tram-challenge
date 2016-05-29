@@ -13,7 +13,7 @@ players = [
   },
   {
     nickname: "Ford Prefect",
-    icloud_user_id: "aac1a3fd-a17a-40aa-a61d-902b955c28a5"
+    icloud_user_id: "e674190f-9e50-4a17-9acc-4b1e2e1018a4"
   }
 ]
 

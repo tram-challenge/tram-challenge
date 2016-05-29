@@ -79,65 +79,58 @@ $(document).on("turbolinks:load", function() {
         })
       }
 
-      if ($el.data("realtime")) {
-        map.on("load", function () {
-          vehiclesGeoJSON(function(geoJSON) {
-            map.addSource("vehicle-markers", geoJSON);
-            map.addLayer({
-              "id": "vehicle-markers",
-              "type": "symbol",
-              "source": "vehicle-markers",
-              "layout": {
-                "icon-image": "{marker-symbol}-11",
-                "text-field": "{title}",
-                "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-                "text-offset": [0, 0.6],
-                "text-anchor": "top"
-              }
+      map.on("load", function () {
+        var url = "/routes"
+        $.getJSON(url, function(urls) {
+          $.each(urls, function(i, routeURL) {
+            $.getJSON(routeURL, function(json, status, xhr) {
+              var id = "route-" + uuid();
+              map.addSource(id, {
+                "type": "geojson",
+                "data": json
+              });
+
+              map.addLayer({
+                "id": id,
+                "type": "line",
+                "source": id,
+                "layout": {
+                  "line-join": "round",
+                  "line-cap": "round"
+                },
+                "paint": {
+                  "line-color": "#888",
+                  "line-width": 2
+                }
+              }, "vehicle-markers");
             });
           });
-
-          setInterval(function() {
-            vehiclesGeoJSON(function(newJSON) {
-              map.getSource("vehicle-markers").setData(newJSON.data);
-            })
-          }, 1000)
         })
-      }
+      })
 
-      if ($el.data("routes")) {
-        map.on("load", function () {
-          var url = "/routes"
-          $.getJSON(url, function(urls) {
-            $.each(urls, function(i, routeURL) {
-              $.getJSON(routeURL, function(json, status, xhr) {
-                var id = "route-" + uuid();
-                console.log(id)
-                debugger
-                map.addSource(id, {
-                  "type": "geojson",
-                  "data": json
-                });
+      map.on("load", function () {
+        vehiclesGeoJSON(function(geoJSON) {
+          map.addSource("vehicle-markers", geoJSON);
+          map.addLayer({
+            "id": "vehicle-markers",
+            "type": "symbol",
+            "source": "vehicle-markers",
+            "layout": {
+              "icon-image": "{marker-symbol}-11",
+              "text-field": "{title}",
+              "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+              "text-offset": [0, 0.6],
+              "text-anchor": "top"
+            }
+          });
+        });
 
-                map.addLayer({
-                  "id": id,
-                  "type": "line",
-                  "source": id,
-                  "layout": {
-                    "line-join": "round",
-                    "line-cap": "round"
-                  },
-                  "paint": {
-                    "line-color": "#888",
-                    "line-width": 2
-                  }
-                });
-              });
-            });
+        setInterval(function() {
+          vehiclesGeoJSON(function(newJSON) {
+            map.getSource("vehicle-markers").setData(newJSON.data);
           })
-        })
-      }
-
+        }, 1000)
+      })
     })
   }
 });

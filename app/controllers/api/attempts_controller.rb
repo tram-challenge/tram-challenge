@@ -16,6 +16,10 @@ class Api::AttemptsController < Api::BaseController
       current_player.attempts.create(started_at: Time.current)
     end
 
+    if params[:nickname]
+      current_player.update_attributes(nickname: params[:nickname])
+    end
+
     render json: AttemptRepresenter.new(attempt)
   end
 

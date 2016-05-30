@@ -1,4 +1,5 @@
 class NavbarTabBuilder < TabsOnRails::Tabs::Builder
+  #:nocov:
   def open_tabs(options = {})
     options[:class] ||= "nav navbar-nav"
     @context.tag("ul", options, open = true)
@@ -18,4 +19,5 @@ class NavbarTabBuilder < TabsOnRails::Tabs::Builder
       @context.link_to(name, options, item_options)
     end
   end
+  #:nocov:
 end

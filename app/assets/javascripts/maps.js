@@ -75,6 +75,8 @@ $(document).on("turbolinks:load", function() {
         maxZoom: 20,
       });
 
+      map.addControl(new mapboxgl.Navigation());
+
       map.fitBounds(routeBounds);
 
       map.on("load", function () {
@@ -149,6 +151,49 @@ $(document).on("turbolinks:load", function() {
             map.getSource("vehicle-markers").setData(newJSON.data);
           })
         }, 1000)
+
+        if ("geolocation" in navigator) {
+          var geolocation = new mapboxgl.Geolocate({position: "top-left"});
+          map.addControl(geolocation);
+
+          map.addSource("current-location", {
+            "type": "geojson",
+            "data": {
+              "type": "FeatureCollection",
+              "features": []
+            }
+          });
+
+          map.addLayer({
+            "id": "current-location",
+            "type": "circle",
+            "source": "current-location",
+            "paint": {
+              "circle-radius": 5,
+              "circle-color": "#007AC9",
+              "circle-opacity": 0.9
+            }
+          }, "vehicle-markers");
+
+          $(geolocation._geolocateButton).on("click", function() {
+            navigator.geolocation.watchPosition(function(position) {
+              var data = {
+                "type": "FeatureCollection",
+                "features": [
+                  {
+                    "type": "Feature",
+                    "geometry": {
+                      "type": "Point",
+                      "coordinates": [position.coords.longitude, position.coords.latitude]
+                    }
+                  }
+                ]
+              }
+
+              map.getSource("current-location").setData(data);
+            });
+          });
+        }
       })
     })
   }

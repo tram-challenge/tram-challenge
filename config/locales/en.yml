@@ -29,5 +29,6 @@ en:
     pages:
       map: Map
       rules: Challenge rules
+      about: About
     stops:
       index: Stops included in the challenge

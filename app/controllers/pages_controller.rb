@@ -3,6 +3,10 @@ class PagesController < ApplicationController
     set_tab :home
   end
 
+  def map
+    set_tab :about
+  end
+
   def rules
     set_tab :rules
   end

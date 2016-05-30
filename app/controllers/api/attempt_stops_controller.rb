@@ -5,8 +5,12 @@ class Api::AttemptStopsController < Api::BaseController
 
     if params[:stop][:visited]
       attempt_stop.visited_at ||= Time.current
+      attempt_stop.longitude ||= params[:stop][:user_lat]
+      attempt_stop.latitude ||= params[:stop][:user_lon]
     else
       attempt_stop.visited_at = nil
+      attempt_stop.longitude = nil
+      attempt_stop.latitude = nil
     end
 
     if attempt_stop.save

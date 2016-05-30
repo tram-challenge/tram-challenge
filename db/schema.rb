@@ -11,7 +11,7 @@
 #
 # It's strongly recommended that you check this file into your version control system.
 
-ActiveRecord::Schema.define(version: 20160529103540) do
+ActiveRecord::Schema.define(version: 20160530132420) do
 
   # These are extensions that must be enabled in order to support this database
   enable_extension "plpgsql"
@@ -21,9 +21,11 @@ ActiveRecord::Schema.define(version: 20160529103540) do
   create_table "attempt_stops", id: :uuid, default: -> { "uuid_generate_v4()" }, force: :cascade do |t|
     t.uuid     "attempt_id"
     t.uuid     "stop_id"
-    t.datetime "created_at", null: false
-    t.datetime "updated_at", null: false
+    t.datetime "created_at",                           null: false
+    t.datetime "updated_at",                           null: false
     t.datetime "visited_at"
+    t.decimal  "longitude",  precision: 18, scale: 15
+    t.decimal  "latitude",   precision: 18, scale: 15
     t.index ["attempt_id"], name: "index_attempt_stops_on_attempt_id", using: :btree
     t.index ["stop_id"], name: "index_attempt_stops_on_stop_id", using: :btree
   end

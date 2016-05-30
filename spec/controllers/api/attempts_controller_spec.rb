@@ -41,6 +41,39 @@ RSpec.describe Api::AttemptsController, type: :controller do
     end
   end
 
+  describe "POST create" do
+    context "the player doesn't have an attempt in progress" do
+      it "creates an attempt" do
+        expect(player.attempts.size).to eq(0)
+
+        post :create, params: { icloud_user_id: uuid }
+
+        expect(player.attempts.reload.size).to eq(1)
+      end
+    end
+
+    context "the player doesn't have an attempt in progress" do
+      it "creates an attempt" do
+        player.attempts.create(started_at: Time.now)
+
+        expect(player.attempts.size).to eq(1)
+
+        post :create, params: { icloud_user_id: uuid }
+
+        expect(player.attempts.reload.size).to eq(1)
+      end
+    end
+
+    it "save the nickname if supplied" do
+      post :create, params: {
+        icloud_user_id: uuid,
+        nickname: "Robert'); DROP TABLE students;--"
+      }
+
+      expect(player.nickname).to eq("Robert'); DROP TABLE students;--")
+    end
+  end
+
   describe "GET show" do
     it "returns the attempt details" do
       get :show, params: { id: in_progress_attempt.id, icloud_user_id: uuid }

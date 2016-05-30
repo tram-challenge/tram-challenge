@@ -52,17 +52,6 @@ $(document).on("turbolinks:load", function() {
 
       mapboxgl.accessToken = "pk.eyJ1IjoibWF0aWFza29yaG9uZW4iLCJhIjoiRkNzbl9vRSJ9.K7DdroE6DQ58YUxCMJv4Lg";
 
-      var maxBounds = [
-        [
-          24.7,
-          60.1
-        ], // Southwest coordinates
-        [
-          25.2,
-          60.3
-        ]  // Northeast coordinates
-      ];
-
       var routeBounds = [
         [
           24.858627319335938,
@@ -82,7 +71,6 @@ $(document).on("turbolinks:load", function() {
         interactive: ($el.data("disable-interaction") ? false : true),
         pitch: ($el.data("pitch") ? $el.data("pitch") : 0),
         bearing: 0,
-        maxBounds: maxBounds,
         minZoom: 5,
         maxZoom: 20,
       });

@@ -51,6 +51,29 @@ $(document).on("turbolinks:load", function() {
       $el = $(el)
 
       mapboxgl.accessToken = "pk.eyJ1IjoibWF0aWFza29yaG9uZW4iLCJhIjoiRkNzbl9vRSJ9.K7DdroE6DQ58YUxCMJv4Lg";
+
+      var maxBounds = [
+        [
+          24.7,
+          60.1
+        ], // Southwest coordinates
+        [
+          25.2,
+          60.3
+        ]  // Northeast coordinates
+      ];
+
+      var routeBounds = [
+        [
+          24.858627319335938,
+          60.14526490373431
+        ], // Southwest coordinates
+        [
+          24.991493225097656,
+          60.21952545753577
+        ]  // Northeast coordinates
+      ]
+
       var map = new mapboxgl.Map({
         container: el,
         style: ($el.data("style") ? $el.data("style") : "mapbox://styles/mapbox/streets-v8"),
@@ -59,25 +82,12 @@ $(document).on("turbolinks:load", function() {
         interactive: ($el.data("disable-interaction") ? false : true),
         pitch: ($el.data("pitch") ? $el.data("pitch") : 0),
         bearing: 0,
+        maxBounds: maxBounds,
+        minZoom: 5,
+        maxZoom: 20,
       });
 
-      if ($el.data("animator") && $el.data("animator") == "rotator") {
-        function rotator(){
-          map.easeTo({bearing:60, duration:16000, pitch:55, zoom:14});
-          window.setTimeout(function(){
-            map.easeTo({bearing:180, duration:18000, pitch:0, zoom:10});
-            window.setTimeout(function(){
-              map.easeTo({bearing:220, duration:14000, pitch:70, zoom:11});
-              window.setTimeout(function(){
-                rotator()
-              }, 7000)
-            }, 10000)
-          }, 9000)
-        }
-        map.on("load", function(){
-          rotator()
-        })
-      }
+      map.fitBounds(routeBounds);
 
       map.on("load", function () {
         var url = "/routes"

@@ -13,7 +13,7 @@
           th Date
           th Stops
         tbody
-          - if !@attempts.any?
+          - if @attempts.any?
             - @attempts.each_with_index do |attempt, index|
               tr id=dom_id(attempt)
                 td= index + 1

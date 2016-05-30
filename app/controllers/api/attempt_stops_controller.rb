@@ -1,12 +1,17 @@
 class Api::AttemptStopsController < Api::BaseController
   def update
-    in_progress = current_player.attempts.in_progress.first!
+    in_progress = if (attempt = current_player.attempts.in_progress.first)
+      attempt
+    else
+      current_player.attempts.order(created_at: :desc).first!
+    end
+
     attempt_stop = in_progress.attempt_stops.find_by!(stop_id: params[:id])
 
-    if params[:stop][:visited]
+    if params[:stop][:visited].present? && params[:stop][:visited] != "false"
       attempt_stop.visited_at ||= Time.current
-      attempt_stop.longitude ||= params[:stop][:user_lat]
-      attempt_stop.latitude ||= params[:stop][:user_lon]
+      attempt_stop.longitude ||= params[:stop][:user_lon]
+      attempt_stop.latitude ||= params[:stop][:user_lat]
     else
       attempt_stop.visited_at = nil
       attempt_stop.longitude = nil

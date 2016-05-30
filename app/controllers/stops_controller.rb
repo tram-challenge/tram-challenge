@@ -1,7 +1,6 @@
 class StopsController < ApplicationController
-  set_tab :stops
-
   def index
+    set_tab :stops
     @stops = Stop.active.order(:name)
   end
 end

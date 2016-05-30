@@ -1,11 +1,6 @@
 class LeaderboardsController < ApplicationController
-  set_tab :leaderboard
-
   def show
+    set_tab :leaderboard
     @attempts = Attempt.fully_completed.order_by_elapsed
-  end
-
-  def completion
-    @attempts = Attempt.all
   end
 end

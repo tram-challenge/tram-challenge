@@ -3,7 +3,7 @@ class PagesController < ApplicationController
     set_tab :home
   end
 
-  def map
+  def about
     set_tab :about
   end
 

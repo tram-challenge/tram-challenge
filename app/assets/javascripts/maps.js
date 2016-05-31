@@ -32,6 +32,10 @@ var vehiclesGeoJSON = function(callback) {
 }
 
 $(document).on("turbolinks:load", function() {
+  if (window.vehiclesIntervalID) {
+    window.clearInterval(vehiclesIntervalID);
+  }
+
   if ($("#full-map").length) {
     mapboxgl.accessToken = "pk.eyJ1IjoibWF0aWFza29yaG9uZW4iLCJhIjoiRkNzbl9vRSJ9.K7DdroE6DQ58YUxCMJv4Lg";
     var map = new mapboxgl.Map({
@@ -125,7 +129,7 @@ $(document).on("turbolinks:load", function() {
         });
       });
 
-      setInterval(function() {
+      window.vehiclesIntervalID = setInterval(function() {
         vehiclesGeoJSON(function(newJSON) {
           map.getSource("vehicle-markers").setData(newJSON.data);
         })

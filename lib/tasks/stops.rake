@@ -29,7 +29,10 @@ namespace :stops do
     }
     )
 
-    resp = HTTP.post("https://api.digitransit.fi/routing/v1/routers/finland/index/graphql", body: query)
+    endpoint_url = "https://api.digitransit.fi/routing/v1/routers/finland/index/graphql"
+
+    resp = HTTP.headers("Content-Type": "application/graphql").
+      post(endpoint_url, body: query)
 
     data = JSON.load(resp.body.to_s)
 

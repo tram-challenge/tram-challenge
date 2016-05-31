@@ -1,4 +1,9 @@
 class PagesController < ApplicationController
+  TRAM_ROUTES = begin
+    path = Rails.root.join("public", "geojson", "routes.json")
+    File.read(path)
+  end
+
   def home
     set_tab :home
   end
@@ -12,6 +17,6 @@ class PagesController < ApplicationController
   end
 
   def map
-    set_tab :map
+    @stops = Stop.active.order(:name)
   end
 end

@@ -1,5 +1,5 @@
 json.type "FeatureCollection"
-json.features @stops do |stop|
+json.features (defined?(stops) ? stops : @stops) do |stop|
   json.type "Feature"
   json.geometry do
     json.type "Point"

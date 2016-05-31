@@ -1,1 +1,7 @@
+script type="application/json" data-contents="tram-routes"
+  = raw(PagesController::TRAM_ROUTES)
+
+script type="application/json" data-contents="stops"
+  = raw render(template: "stops/index.json", stops: @stops )
+
 #full-map data-role="map"

@@ -89,7 +89,7 @@ $(document).on("turbolinks:load", function() {
 
       // Load the tram stops
 
-      var stopsJSON = JSON.parse($("script[data-contents='tram-routes']").html());
+      var stopsJSON = JSON.parse($("script[data-contents='stops']").html());
 
       map.addSource("stop-markers", {
         "type": "geojson",

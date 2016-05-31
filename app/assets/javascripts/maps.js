@@ -31,20 +31,6 @@ var vehiclesGeoJSON = function(callback) {
   });
 }
 
-
-var uuid = function() {
-  var uuid = "", i, random;
-  for (i = 0; i < 32; i++) {
-    random = Math.random() * 16 | 0;
-
-    if (i == 8 || i == 12 || i == 16 || i == 20) {
-      uuid += "-"
-    }
-    uuid += (i == 12 ? 4 : (i == 16 ? (random & 3 | 8) : random)).toString(16);
-  }
-  return uuid;
-}
-
 $(document).on("turbolinks:load", function() {
   if ($("[data-role~=map]").length) {
     $("[data-role~=map]").each(function(i, el) {
@@ -72,7 +58,7 @@ $(document).on("turbolinks:load", function() {
         pitch: ($el.data("pitch") ? $el.data("pitch") : 0),
         bearing: 0,
         minZoom: 5,
-        maxZoom: 20,
+        maxZoom: 20
       });
 
       map.addControl(new mapboxgl.Navigation());

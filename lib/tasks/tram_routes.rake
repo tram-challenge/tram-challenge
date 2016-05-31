@@ -50,7 +50,7 @@ namespace :tram_routes do
           "type" => "Feature",
           "properties" => {
             "route" => route_name,
-            "route-color": ROUTE_COLORS[route_name] || "#444",
+            "route-color" => ROUTE_COLORS[route_name] || "#444",
           },
           "geometry" => {
             "type" => "LineString",

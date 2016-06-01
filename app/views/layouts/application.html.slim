@@ -1,5 +1,5 @@
 doctype html
-html lang="en"
+html lang=(@lang || "en")
   head
     meta charset="utf-8"
     meta http-equiv="X-UA-Compatible" content="IE=edge"
@@ -43,6 +43,7 @@ html lang="en"
               = tab.rules "Rules", :rules
               = tab.leaderboard "Leaderboard", :leaderboard
               = tab.about "About", :about
+              = tab.suomeksi "Suomeksi", :suomeksi
 
     - if alert
       .alert.alert-warning.alert-dismissible role="alert"

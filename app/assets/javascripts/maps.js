@@ -140,10 +140,15 @@ $(document).on("turbolinks:load", function() {
       });
       vehiclesClient.on("message", function (topic, message) {
         var data = JSON.parse(message.toString());
-        window.vehiclesCache[data.VP.veh] = data;
+        var veh = data.VP.veh;
+        var cached = window.vehiclesCache[data.VP.veh];
 
-        var geoJSON = vehiclesGeoJSON(window.vehiclesCache);
-        map.getSource("vehicle-markers").setData(geoJSON.data);
+        if (typeof(cached) === "undefined" || data.VP.tsi > cached.VP.tsi) {
+          window.vehiclesCache[data.VP.veh] = data;
+
+          var geoJSON = vehiclesGeoJSON(window.vehiclesCache);
+          map.getSource("vehicle-markers").setData(geoJSON.data);
+        }
       });
 
       if ("geolocation" in navigator) {

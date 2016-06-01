@@ -134,7 +134,7 @@ $(document).on("turbolinks:load", function() {
       });
 
       // Subscribe to the vehicles MQTT topic
-      window.vehiclesClient = mqtt.connect("ws://mqtt.hsl.fi:1883/");
+      window.vehiclesClient = mqtt.connect("wss://dev.hsl.fi/mqtt-proxy");
       vehiclesClient.on("connect", function() {
         vehiclesClient.subscribe("/hfp/journey/tram/#");
       });

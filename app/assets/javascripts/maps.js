@@ -19,7 +19,7 @@ var vehiclesGeoJSON = function(data) {
         "coordinates": [vehicle.long, vehicle.lat]
       },
       "properties": {
-        "title": vehicle.desi.replace(/^10+/, ""),
+        "title": vehicle.desi,
         "marker-symbol": "marker",
         "vehicle-id": vehicle.veh
       }
@@ -30,6 +30,10 @@ var vehiclesGeoJSON = function(data) {
 }
 
 $(document).on("turbolinks:load", function() {
+  // Disconnect from the vehicle location websocket when the page changes
+  if (typeof(vehiclesClient) == "object") {
+    window.vehiclesClient.end(true);
+  }
 
   if ($("#full-map").length) {
     mapboxgl.accessToken = "pk.eyJ1IjoibWF0aWFza29yaG9uZW4iLCJhIjoiRkNzbl9vRSJ9.K7DdroE6DQ58YUxCMJv4Lg";
@@ -130,11 +134,11 @@ $(document).on("turbolinks:load", function() {
       });
 
       // Subscribe to the vehicles MQTT topic
-      var client  = mqtt.connect("ws://mqtt.hsl.fi:1883/");
-      client.on("connect", function() {
-         client.subscribe("/hfp/journey/tram/#");
+      window.vehiclesClient = mqtt.connect("ws://mqtt.hsl.fi:1883/");
+      vehiclesClient.on("connect", function() {
+        vehiclesClient.subscribe("/hfp/journey/tram/#");
       });
-      client.on("message", function (topic, message) {
+      vehiclesClient.on("message", function (topic, message) {
         var data = JSON.parse(message.toString());
         window.vehiclesCache[data.VP.veh] = data;
 

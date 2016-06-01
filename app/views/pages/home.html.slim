@@ -10,15 +10,10 @@
           p
             | The goal of the Tram Challenge is to <em>visit all the tram stops</em> on the Helsinki tram system as quickly as possible.
 
-/ .container
-/   .jumbotron.jumbotron-map data-role="map" data-disable-interaction="disable-interaction" data-style="mapbox://styles/matiaskorhonen/cior3s5es000edinov2r5cpm6" data-pitch=60 data-animator="rotator" data-realtime="realtime"
-/     .jumbotron-overlay
-/     = image_tag "tram-challenge-white.svg", class: "jumbotron-logo"
-
 .container
   .row
     .col-md-3.col-md-offset-1
-      = image_tag "iphone.png", alt: "Tram Challenge iOS app screenshot", class: "img-responsive"
+      = image_tag "iphone.png", alt: "Tram Challenge iOS app screenshot", class: "phone-screenshot img-responsive"
     .col-md-7
       h2 How?
 
@@ -45,16 +40,27 @@
       p.lead
         | Its shouldn't take more than a few hours to complete the challenge so it's very much doable in one day.
 
+  hr
 
-  / .row
-  /   .col-md-6
-  /     = image_tag "arctic-Alex-Hallberg-cc-by-sa.jpg", alt: "A tram in Helsinki", class: "img-responsive"
-  /
-  /   .col-md-6
-  /     = image_tag "raitiolinjat.png", alt: "Helsinki tram network", class: "img-responsive"
+  .row
+    .col-md-3.col-md-offset-1
+      h3 Sponsored by
+    .col-md-3
+      = link_to "https://libpixel.com" do
+        = image_tag "libpixel.svg", alt: "LibPixel", class: "img-responsive"
+      br
+  .row
+    .col-md-3.col-md-offset-4
+      = link_to "https://www.piranhas.co" do
+        = image_tag "piranhas.png", alt: "Piranhas", class: "img-responsive"
+      br
+  .row
+    .col-md-3.col-md-offset-4
+      = link_to "https://www.kiskolabs.com" do
+        = image_tag "kisko.svg", alt: "Kisko", class: "img-responsive"
+      br
 
   footer.footer
     .container
       p.text-muted
-        | Created by the <a href="/about">Tram Challenge team</a>.&nbsp;
-        | Hosting provided by <a href="https://www.kiskolabs.com/">Kisko Labs</a>.
+        | Created by the <a href="/about">Tram Challenge team</a>

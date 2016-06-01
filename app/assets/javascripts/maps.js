@@ -1,39 +1,38 @@
-var vehiclesGeoJSON = function(callback) {
-  var url = "https://api.digitransit.fi/realtime/vehicle-positions/v1/hfp/journey/tram/";
+//= require browserMqtt
 
-  $.getJSON(url, function(data, status, xhr) {
-    var geoJSON = {
-        "type": "geojson",
-        "data": {
-            "type": "FeatureCollection",
-            "features": []
-        }
+var vehiclesGeoJSON = function(data) {
+  var geoJSON = {
+    "type": "geojson",
+    "data": {
+      "type": "FeatureCollection",
+      "features": []
     }
+  }
 
-    Object.keys(data).forEach(function(id){
-      var vehicle = data[id].VP;
+  Object.keys(data).forEach(function(id){
+  var vehicle = data[id].VP;
 
-      geoJSON.data.features.push({
-        "type": "Feature",
-        "geometry": {
-            "type": "Point",
-            "coordinates": [vehicle.long, vehicle.lat]
-        },
-        "properties": {
-            "title": vehicle.line.replace(/^10+/, ""),
-            "marker-symbol": "marker",
-            "vehicle-id": vehicle.veh
-        }
-      });
+    geoJSON.data.features.push({
+      "type": "Feature",
+      "geometry": {
+        "type": "Point",
+        "coordinates": [vehicle.long, vehicle.lat]
+      },
+      "properties": {
+        "title": vehicle.desi,
+        "marker-symbol": "marker",
+        "vehicle-id": vehicle.veh
+      }
     });
-
-    callback(geoJSON)
   });
+
+  return geoJSON;
 }
 
 $(document).on("turbolinks:load", function() {
-  if (window.vehiclesIntervalID) {
-    window.clearInterval(vehiclesIntervalID);
+  // Disconnect from the vehicle location websocket when the page changes
+  if (typeof(vehiclesClient) == "object") {
+    window.vehiclesClient.end(true);
   }
 
   if ($("#full-map").length) {
@@ -61,8 +60,8 @@ $(document).on("turbolinks:load", function() {
     ]);
 
     map.on("load", function () {
-      // Load the tram routes
 
+      // Load the tram routes
       var routes = JSON.parse($("script[data-contents='tram-routes']").html());
 
       $.each(routes["features"], function(i, feature) {
@@ -92,7 +91,6 @@ $(document).on("turbolinks:load", function() {
       });
 
       // Load the tram stops
-
       var stopsJSON = JSON.parse($("script[data-contents='stops']").html());
 
       map.addSource("stop-markers", {
@@ -110,30 +108,43 @@ $(document).on("turbolinks:load", function() {
           "circle-opacity": 0.8
         }
       }, "vehicle-markers");
-    })
 
-    map.on("load", function () {
-      vehiclesGeoJSON(function(geoJSON) {
-        map.addSource("vehicle-markers", geoJSON);
-        map.addLayer({
-          "id": "vehicle-markers",
-          "type": "symbol",
-          "source": "vehicle-markers",
-          "layout": {
-            "icon-image": "{marker-symbol}-11",
-            "text-field": "{title}",
-            "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
-            "text-offset": [0, 0.6],
-            "text-anchor": "top"
-          }
-        });
+
+      // Initialize the vehicles data source and layer
+      window.vehiclesCache = {};
+      var vehiclesJSON = {
+        "type": "geojson",
+        "data": {
+          "type": "FeatureCollection",
+          "features": []
+        }
+      }
+      map.addSource("vehicle-markers", vehiclesJSON);
+      map.addLayer({
+        "id": "vehicle-markers",
+        "type": "symbol",
+        "source": "vehicle-markers",
+        "layout": {
+          "icon-image": "{marker-symbol}-11",
+          "text-field": "{title}",
+          "text-font": ["Open Sans Semibold", "Arial Unicode MS Bold"],
+          "text-offset": [0, 0.6],
+          "text-anchor": "top"
+        }
       });
 
-      window.vehiclesIntervalID = setInterval(function() {
-        vehiclesGeoJSON(function(newJSON) {
-          map.getSource("vehicle-markers").setData(newJSON.data);
-        })
-      }, 1000)
+      // Subscribe to the vehicles MQTT topic
+      window.vehiclesClient = mqtt.connect("ws://mqtt.hsl.fi:1883/");
+      vehiclesClient.on("connect", function() {
+        vehiclesClient.subscribe("/hfp/journey/tram/#");
+      });
+      vehiclesClient.on("message", function (topic, message) {
+        var data = JSON.parse(message.toString());
+        window.vehiclesCache[data.VP.veh] = data;
+
+        var geoJSON = vehiclesGeoJSON(window.vehiclesCache);
+        map.getSource("vehicle-markers").setData(geoJSON.data);
+      });
 
       if ("geolocation" in navigator) {
         var geolocation = new mapboxgl.Geolocate({position: "top-left"});

@@ -17,12 +17,25 @@ body, html {
 }
 
 .phone-screenshot {
-  max-height: 440px;
+  max-height: 750px;
   margin-left: auto;
   margin-right: auto;
 }
 
 .action-home {
+  .carousel {
+    max-height: 100vh;
+
+    .carousel-inner {
+      max-height: 100vh;
+      img {
+        max-height: 100vh;
+        margin-left: auto;
+        margin-right: auto;
+      }
+    }
+  }
+
   .jumbotron {
     text-align: center;
 
@@ -70,4 +83,40 @@ body, html {
 #full-map {
   height: 100%;
   width: 100%;
+}
+
+img.friend {
+  max-width: 250px;
+}
+
+.carousel-fade {
+  .carousel-inner {
+    .item {
+      transition-property: opacity;
+    }
+
+    .item,
+    .active.left,
+    .active.right {
+      opacity: 0;
+    }
+
+    .active,
+    .next.left,
+    .prev.right {
+      opacity: 1;
+    }
+
+    .next,
+    .prev,
+    .active.left,
+    .active.right {
+      left: 0;
+      transform: translate3d(0, 0, 0);
+    }
+  }
+
+  .carousel-control {
+    z-index: 2;
+  }
 }

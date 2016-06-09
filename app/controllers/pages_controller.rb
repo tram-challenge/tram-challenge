@@ -22,6 +22,11 @@ class PagesController < ApplicationController
     @stops = Stop.active.order(:name)
   end
 
+  def suomeksi
+    @lang = "fi"
+    set_tab :suomeksi
+  end
+
   private def set_cache_headers
     expires_in 1.minute, public: true
   end

@@ -21,8 +21,6 @@
 
 en:
   titles:
-    # titles.application defaults to the sigficant portion of
-    # AppName::Application, which would be:
     application: Tram Challenge
     leaderboards:
       show: Leaderboard
@@ -30,5 +28,6 @@ en:
       map: Map
       rules: Challenge rules
       about: About
+      suomeksi: Mikä ihmeen Tram Challenge?
     stops:
       index: Stops included in the challenge

@@ -1,6 +1,6 @@
-$brand-primary: rgb(0, 122, 201) !default;
-
-@import "bootstrap-cosmo";
+@import "cosmo/variables";
+@import "bootstrap";
+@import "cosmo/bootswatch";
 
 body, html {
   height: 100%;

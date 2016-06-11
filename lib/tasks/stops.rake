@@ -44,7 +44,11 @@ namespace :stops do
     # for that tram line.
     data["data"]["routes"].each do |route|
       route["patterns"].sort_by! {|p| p["trips"].length }.reverse!
-      route["stops"] = route.delete("patterns").dig(0, "stops")
+      if route["shortName"] == "6T"
+        route["stops"] = route["patterns"][1]["stops"]
+      else
+        route["stops"] = route["patterns"][0]["stops"]
+      end
     end
 
     stops = {}

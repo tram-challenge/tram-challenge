@@ -19,4 +19,5 @@ Rails.application.routes.draw do
   get "about" => "pages#about"
   get "map" => "pages#map"
   get "rules" => "pages#rules"
+  get "suomeksi" => "pages#suomeksi"
 end

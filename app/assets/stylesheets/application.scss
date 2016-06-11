@@ -1,6 +1,6 @@
-$brand-primary: rgb(0, 122, 201) !default;
-
-@import "bootstrap-cosmo";
+@import "cosmo/variables";
+@import "bootstrap";
+@import "cosmo/bootswatch";
 
 body, html {
   height: 100%;
@@ -17,7 +17,7 @@ body, html {
 }
 
 .phone-screenshot {
-  max-height: 440px;
+  max-height: 750px;
   margin-left: auto;
   margin-right: auto;
 }
@@ -70,4 +70,8 @@ body, html {
 #full-map {
   height: 100%;
   width: 100%;
+}
+
+img.friend {
+  max-width: 250px;
 }

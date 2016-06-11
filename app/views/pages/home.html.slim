@@ -12,13 +12,13 @@
 
 .container
   .row
-    .col-md-3.col-md-offset-1
-      = image_tag "iphone.png", alt: "Tram Challenge iOS app screenshot", class: "phone-screenshot img-responsive"
+    .col-md-5
+      = image_tag "composite.png", alt: "Tram Challenge app screenshots", class: "img-responsive phone-screenshot"
     .col-md-7
       h2 How?
 
       p.lead
-        | Start by downloading the Tram Challenge app from the App Store. Next you should do some initial planning for your route, pay special attention to the route end points…
+        | Start by downloading the Tram Challenge app from the App Store. Next you should do some initial planning for your route, pay special attention to the route endpoints…
 
       p.lead
         | Once you have a plan, <strong>go for it!</strong>
@@ -43,21 +43,21 @@
   hr
 
   .row
-    .col-md-3.col-md-offset-1
+    .col-md-3.col-md-offset-2
       h3 Sponsored by
     .col-md-3
       = link_to "https://libpixel.com" do
-        = image_tag "libpixel.svg", alt: "LibPixel", class: "img-responsive"
+        = image_tag "libpixel.svg", alt: "LibPixel", class: "img-responsive friend"
       br
   .row
-    .col-md-3.col-md-offset-4
+    .col-md-3.col-md-offset-5
       = link_to "https://www.piranhas.co" do
-        = image_tag "piranhas.png", alt: "Piranhas", class: "img-responsive"
+        = image_tag "piranhas.png", alt: "Piranhas", class: "img-responsive friend"
       br
   .row
-    .col-md-3.col-md-offset-4
+    .col-md-3.col-md-offset-5
       = link_to "https://www.kiskolabs.com" do
-        = image_tag "kisko.svg", alt: "Kisko", class: "img-responsive"
+        = image_tag "kisko.svg", alt: "Kisko", class: "img-responsive friend"
       br
 
   footer.footer

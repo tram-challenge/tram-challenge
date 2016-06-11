@@ -100,41 +100,6 @@ namespace :stops do
 
     end
 
-    # stop_data = data.dig("data", "routes").
-    #   map { |r| r["stops"] }.flatten.
-    #   group_by { |s| s["name"] }
-    #
-    # Stop.transaction do
-    #   stops = stop_data.map do |name, data|
-    #     print "Creating #{name}"
-    #
-    #     points = data.map {|s| [s["lat"], s["lon"]] }
-    #     centre = Geocoder::Calculations.geographic_center points
-    #     print "."
-    #
-    #     stop = Stop.find_or_initialize_by(name: name)
-    #     print "."
-    #     stop.latitude, stop.longitude = centre
-    #     print "."
-    #     stop.hsl_ids = data.map {|s| Base64.decode64(s["id"]) }.uniq
-    #     print "."
-    #     stop.stop_numbers = data.map {|s| s["code"] }.uniq
-    #     print "."
-    #     stop.routes = data.map {|s| s["route"] }.uniq
-    #
-    #     stop.active = true
-    #
-    #     stop.save!
-    #     puts " done"
-    #
-    #     stop
-    #   end
-    #
-    #   print "Removing old stops... "
-    #   Stop.where.not(id: stops.map(&:id)).update_all(active: false)
-    #   puts "Done"
-    # end
-
     puts "Known stops: #{Stop.count}"
     puts "Active stops: #{Stop.active.count}"
   end

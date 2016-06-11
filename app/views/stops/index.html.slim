@@ -32,5 +32,8 @@
   .row
     .col-md-8.col-md-offset-2
       .text-center
-        = link_to "Download stops as GeoJSON", [:stops, format: :json], download: "tram-challenge-stops"
+        | Download stops as&#32;
+        = link_to "GeoJSON", [:stops, format: :json], download: "tram-challenge-stops"
+        |&#32;or&#32;
+        = link_to "KML (Google Earth)", [:stops, format: :json], download: "tram-challenge-stops"
       br

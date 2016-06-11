@@ -1,0 +1,11 @@
+doctype xml
+kml xmlns="http://www.opengis.net/kml/2.2"
+  Document
+    - @stops.each do |stop|
+      Placemark
+        name= stop.name
+        description
+          = "Stop numbers: #{stop.stop_numbers.join(", ")}. \n"
+          = "Trams: #{stop.routes.join(", ")}"
+        Point
+          coordinates= "#{stop.longitude}, #{stop.latitude}"

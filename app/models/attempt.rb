@@ -19,6 +19,11 @@ class Attempt < ApplicationRecord
 
   before_create :initialize_attempt_stops
 
+  def self.fully_completed_and_valid
+    # for now min 3 hours - do more validation later
+    fully_completed.order_by_elapsed.select {|attempt| attempt.elapsed_time > 60 * 60 * 3}
+  end
+
   def elapsed_time(pretty: false)
     seconds = if finished_at
       finished_at.to_i - started_at.to_i

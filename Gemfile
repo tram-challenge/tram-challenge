@@ -11,8 +11,10 @@ gem "rack-rewrite"
 
 gem "title"
 gem "slim-rails"
-gem "tabs_on_rails"
 gem "redcarpet"
+
+# Until https://github.com/weppos/tabs_on_rails/pull/35 is resolved
+gem "tabs_on_rails", github: "matiaskorhonen/tabs_on_rails", branch: "rails-5-fix"
 
 gem "sass-rails", "~> 5.0"
 gem "bootswatch-sass", "~> 3.3.0"

@@ -11,6 +11,7 @@ Rails.application.routes.draw do
   resources :tram_routes, path: "routes", only: %i(index)
 
   resource :leaderboard, only: %i(show)
+  get '/leaderboard/:attempt' => 'leaderboards#show_attempt'
 
   resources :stops, only: %i(index)
 

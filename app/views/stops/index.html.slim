@@ -24,7 +24,7 @@
               td= stop.stop_numbers.join(", ")
               td
                 - stop.routes.each do |route|
-                  span.badge= route
+                  span[class="badge tram-#{route}"]= route
                   |&#32;
               td
                 = "#{number_with_precision(stop.latitude, precision: 5)}, #{number_with_precision(stop.longitude, precision: 5)}"

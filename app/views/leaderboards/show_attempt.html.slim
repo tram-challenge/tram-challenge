@@ -1,0 +1,27 @@
+.container
+  .row
+    .col-md-8.col-md-offset-2
+      h1
+        | Attempt by 
+        strong= @attempt.player.nickname
+      p
+        | Completed on 
+        = @attempt.finished_at.to_formatted_s(:long)
+  .row
+    .col-md-8.col-md-offset-2
+      table.table.table-striped
+        thead
+          th #
+          th Stop Name
+          th Elapsed time
+          th Lines
+        tbody
+          - @attempt.attempt_stops.each_with_index do |attempt_stop, index|
+            tr
+              td= index + 1
+              td= attempt_stop.stop.name
+              td= attempt_stop.elapsed_time
+              td
+                - attempt_stop.stop.routes.each do |route|
+                  span[class="badge tram-#{route}"]= route
+                  |&#32;

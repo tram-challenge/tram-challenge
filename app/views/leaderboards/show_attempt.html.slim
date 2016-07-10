@@ -6,7 +6,7 @@
         strong= @attempt.player.nickname
       p
         | Completed on 
-        = @attempt.finished_at.to_formatted_s(:long)
+        = local_time_date(@attempt.finished_at)
   .row
     .col-md-8.col-md-offset-2
       table.table.table-striped

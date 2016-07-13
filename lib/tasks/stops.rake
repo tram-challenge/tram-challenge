@@ -52,7 +52,8 @@ namespace :stops do
           route["stops"].insert(insert_index, extra_stops[0])
         end
       end
-      if route["shortName"] == "6T"
+
+      if (route["shortName"] == "9" || route["shortName"] == "6T") && !route["stops"].detect {|stop| stop["name"] == "Bunkkeri"}
         extra_stops = route["patterns"][1]["stops"].select {|stop| stop["name"] == "Bunkkeri"}
         insert_index = route["stops"].index {|stop| stop["name"] == "Huutokonttori"}
         if extra_stops.size == 1 && insert_index

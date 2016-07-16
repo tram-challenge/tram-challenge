@@ -46,6 +46,27 @@ class Attempt < ApplicationRecord
     end
   end
 
+  def to_gpx
+    gpx = GPX::GPXFile.new
+
+    track = GPX::Track.new(name: "Tram Challenge attempt by #{player.nickname}")
+    segment = GPX::Segment.new
+
+    attempt_stops.each do |as|
+      data = {
+        lat: as.stop.latitude, lon: as.stop.longitude, time: as.visited_at
+      }
+
+      segment.points << GPX::TrackPoint.new(data)
+      gpx.waypoints << GPX::Waypoint.new(data.merge({ name: as.stop.name }))
+    end
+
+    track.segments << segment
+    gpx.tracks << track
+
+    gpx.to_s
+  end
+
   private def initialize_attempt_stops
     Stop.active.each do |stop|
       self.attempt_stops.build(stop: stop)

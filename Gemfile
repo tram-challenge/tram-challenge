@@ -2,7 +2,7 @@ source "https://rubygems.org"
 
 ruby "2.3.1"
 
-gem "rails", ">= 5.0.0.rc1", "< 5.1"
+gem "rails", "= 5.0.0"
 
 gem "pg", "~> 0.18"
 
@@ -56,7 +56,7 @@ group :development, :test do
   gem "byebug", platform: :mri
   gem "pry-rails"
 
-  gem "rspec-rails", "~> 3.5.x"
+  gem "rspec-rails", "~> 3.5.0"
 end
 
 group :development do

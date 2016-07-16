@@ -12,7 +12,7 @@ gem "rack-rewrite"
 gem "title"
 gem "slim-rails"
 gem "redcarpet"
-gem "gpx", require: "GPX"
+gem "gpx"
 
 # Until https://github.com/weppos/tabs_on_rails/pull/35 is resolved
 gem "tabs_on_rails", github: "matiaskorhonen/tabs_on_rails", branch: "rails-5-fix"

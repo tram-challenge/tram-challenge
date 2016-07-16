@@ -17,7 +17,7 @@
             - @attempts.each_with_index do |attempt, index|
               tr id=dom_id(attempt)
                 td= index + 1
-                td= link_to attempt.player.nickname, action: :show_attempt, attempt: attempt
+                td= link_to attempt.player.nickname, attempt
                 td= attempt.elapsed_time(pretty: true)
                 td= l (attempt.finished_at.present? ? attempt.finished_at : attempt.started_at).to_date
                 td= "#{attempt.attempt_stops.visited.size}/#{attempt.attempt_stops.size}"

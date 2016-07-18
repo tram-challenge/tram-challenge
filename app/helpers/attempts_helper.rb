@@ -1,5 +1,5 @@
 module AttemptsHelper
   def local_time_date(time)
-    time.in_time_zone("Helsinki").to_formatted_s(:long)
+    time.in_time_zone("Helsinki").to_formatted_s(:long) if time
   end
 end

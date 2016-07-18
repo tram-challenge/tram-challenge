@@ -7,7 +7,9 @@ class AttemptStop < ApplicationRecord
   after_commit :check_attempt_completion, if: :persisted?
 
   def elapsed_time
-    elapsed = self.visited_at - attempt.started_at
+    return "—" if visited_at.nil?
+
+    elapsed = visited_at - attempt.started_at
     mm, ss = elapsed.divmod(60)
     hh, mm = mm.divmod(60)
     dd, hh = hh.divmod(24)

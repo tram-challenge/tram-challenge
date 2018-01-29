@@ -67,6 +67,13 @@ namespace :stops do
           route["stops"].insert(insert_index, extra_stops[0])
         end
       end
+      # 8 is the short route, 8H is the full one, so hide the entries for 8 as 8W (for wrong)
+      if route["shortName"] == "8"
+        route["shortName"] = "8W"
+      end
+      if route["shortName"] == "8H"
+        route["shortName"] = "8"
+      end
     end
 
     stops = {}

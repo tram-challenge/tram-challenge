@@ -67,13 +67,15 @@ namespace :stops do
           route["stops"].insert(insert_index, extra_stops[0])
         end
       end
-      # 8 is the short route, 8H is the full one, so hide the entries for 8 as 8W (for wrong)
-      if route["shortName"] == "8"
-        route["shortName"] = "8W"
-      end
-      if route["shortName"] == "8H"
-        route["shortName"] = "8"
-      end
+    end
+
+    # fix line 8, add the first stops in 8H to route 8
+    route8 = data["data"]["routes"].detect {|route| route["shortName"] == "8"}
+    route8H = data["data"]["routes"].detect {|route| route["shortName"] == "8H"}
+    last_8_stop_name = route8["stops"].last["name"]
+    index_in_8H = route8H["stops"].find_index {|stop| stop["name"] == last_8_stop_name}
+    (index_in_8H - 1).downto(0) do |i|
+      route8["stops"] << route8H["stops"][i]
     end
 
     stops = {}

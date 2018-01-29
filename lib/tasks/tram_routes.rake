@@ -18,7 +18,7 @@ ROUTE_COLORS = {
 namespace :tram_routes do
   desc "Convert the text files into valid GeoJSON"
   task :geojson, [:base_path] => :environment do |_, args|
-    args.with_defaults(base_path: File.expand_path("../../../tram-challenge-ios/TramChallenge/Data", __dir__))
+    args.with_defaults(base_path: File.expand_path("../data", __dir__))
 
     base_path = File.expand_path(args[:base_path])
     puts "Trying with data in #{base_path}"
